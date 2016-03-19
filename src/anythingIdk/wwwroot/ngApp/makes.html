@@ -1,0 +1,54 @@
+﻿
+<div class="col-xs-12">
+    <div class="row">
+        <input type="text" class="form-control" id="usr" placeholder="Search for your next car" ng-change="controller.searchFilter_v2()" ng-model="controller.search" />
+        
+        <ul class="list-group">
+            <li class="list-group-item"  ng-repeat="car in controller.searchResults">
+            <a href="" data-toggle="modal" data-target="#myModal" ng-click="controller.getCarInfo(car)">{{car.shortDescription}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-4" style="text-align: right">
+
+        <br /><br />
+
+    </div>
+   
+    <div class="col-xs-4" style="margin-top: 50px; padding-top: 20px; background: rgba(255,255,255, 0.2)">
+        <div class="form-group">
+            <select class="form-control" id="sel1" ng-model="controller.selectedMake"
+                    ng-options="make.name for make in controller.Makes"
+                    ng-change="controller.getCars()"></select>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="car in controller.cars | filter:{carMakeId: controller.selectedMake.id} ">
+                <a href="" ng-click="controller.getCarInfo(car)" data-toggle="modal" data-target="#myModal">{{car.shortDescription}}</a>
+            </li>
+        </ul>
+
+        
+    </div>
+    <div class="col-xs-4"></div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{car.shortDescription}}</h4>
+            </div>
+            <div class="modal-body">
+                <span>{{controller.modelInfo.fullDescription}}</span><br /><br />
+                <span>Price: {{controller.modelInfo.price | currency}}</span><br /><br />
+                <img src="{{controller.modelInfo.imageUrl}}" width="570" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
